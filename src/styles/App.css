@@ -1,0 +1,271 @@
+/*
+ * src/styles/App.css
+ *
+ * Main stylesheet for the Todo List application.
+ * Defines global styles, layout for the main components,
+ * and responsive adjustments.
+ */
+
+/* --- Global Styles & Resets --- */
+:root {
+  --primary-color: #6200ee; /* Deep Purple */
+  --primary-light: #bb86fc;
+  --secondary-color: #03dac6; /* Teal */
+  --background-color: #f4f7f6; /* Light Grayish Blue */
+  --surface-color: #ffffff; /* White */
+  --text-color-primary: #212121; /* Dark Gray */
+  --text-color-secondary: #757575; /* Medium Gray */
+  --error-color: #b00020; /* Red */
+  --success-color: #4caf50; /* Green */
+  --border-color: #e0e0e0; /* Light Gray */
+  --shadow-color: rgba(0, 0, 0, 0.1);
+
+  --font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  --border-radius: 8px;
+  --spacing-unit: 16px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-family);
+  line-height: 1.6;
+  color: var(--text-color-primary);
+  background-color: var(--background-color);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Align to top, not center vertically */
+  min-height: 100vh;
+  padding: var(--spacing-unit);
+}
+
+/* --- Main App Container --- */
+.App {
+  background-color: var(--surface-color);
+  border-radius: var(--border-radius);
+  box-shadow: 0 4px 12px var(--shadow-color);
+  padding: calc(var(--spacing-unit) * 2);
+  max-width: 600px;
+  width: 100%;
+  margin-top: calc(var(--spacing-unit) * 2); /* Add some margin from the top */
+}
+
+/* --- Header --- */
+.App-header {
+  text-align: center;
+  margin-bottom: calc(var(--spacing-unit) * 2);
+}
+
+.App-header h1 {
+  font-size: 2.5em;
+  color: var(--primary-color);
+  margin-bottom: var(--spacing-unit);
+  font-weight: 700;
+}
+
+/* --- Todo Form --- */
+.todo-form {
+  display: flex;
+  gap: var(--spacing-unit);
+  margin-bottom: calc(var(--spacing-unit) * 2);
+}
+
+.todo-form input[type="text"] {
+  flex-grow: 1;
+  padding: calc(var(--spacing-unit) * 0.75) var(--spacing-unit);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  font-size: 1em;
+  outline: none;
+  transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.todo-form input[type="text"]:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(98, 0, 238, 0.2); /* Primary color with transparency */
+}
+
+.todo-form button {
+  padding: calc(var(--spacing-unit) * 0.75) calc(var(--spacing-unit) * 1.5);
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: var(--border-radius);
+  font-size: 1em;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out;
+  font-weight: 500;
+}
+
+.todo-form button:hover {
+  background-color: var(--primary-light);
+  transform: translateY(-1px);
+}
+
+.todo-form button:active {
+  transform: translateY(0);
+}
+
+.todo-form button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* --- Todo List --- */
+.todo-list {
+  list-style: none;
+  padding: 0;
+}
+
+.todo-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-unit);
+  border-bottom: 1px solid var(--border-color);
+  transition: background-color 0.2s ease-in-out;
+}
+
+.todo-list li:last-child {
+  border-bottom: none;
+}
+
+.todo-list li:hover {
+  background-color: #f9f9f9;
+}
+
+.todo-item-content {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+  cursor: pointer;
+  padding-right: var(--spacing-unit); /* Space for the delete button */
+}
+
+.todo-item-content input[type="checkbox"] {
+  margin-right: var(--spacing-unit);
+  width: 20px;
+  height: 20px;
+  accent-color: var(--primary-color); /* Style the checkbox */
+  cursor: pointer;
+}
+
+.todo-item-content span {
+  font-size: 1.1em;
+  color: var(--text-color-primary);
+  word-break: break-word; /* Ensure long words wrap */
+}
+
+.todo-item-content.completed span {
+  text-decoration: line-through;
+  color: var(--text-color-secondary);
+}
+
+.todo-list li button {
+  background: none;
+  border: none;
+  color: var(--error-color);
+  font-size: 1.2em;
+  cursor: pointer;
+  padding: calc(var(--spacing-unit) * 0.5);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+.todo-list li button:hover {
+  background-color: rgba(var(--error-color), 0.1);
+  color: darken(var(--error-color), 10%); /* Darken red on hover */
+}
+
+/* --- Empty State Message --- */
+.empty-list-message {
+  text-align: center;
+  color: var(--text-color-secondary);
+  padding: calc(var(--spacing-unit) * 2);
+  font-style: italic;
+}
+
+/* --- Loading and Error States --- */
+.loading-message,
+.error-message {
+  text-align: center;
+  padding: var(--spacing-unit);
+  font-weight: 500;
+}
+
+.loading-message {
+  color: var(--primary-color);
+}
+
+.error-message {
+  color: var(--error-color);
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 768px) {
+  .App {
+    margin-top: var(--spacing-unit);
+    padding: var(--spacing-unit);
+    border-radius: 0; /* Remove border-radius on smaller screens for full width */
+    box-shadow: none; /* Remove shadow on smaller screens */
+  }
+
+  .App-header h1 {
+    font-size: 2em;
+  }
+
+  .todo-form {
+    flex-direction: column;
+    gap: calc(var(--spacing-unit) * 0.75);
+  }
+
+  .todo-form button {
+    width: 100%;
+    padding: var(--spacing-unit);
+  }
+
+  .todo-list li {
+    flex-wrap: wrap; /* Allow items to wrap if content is too long */
+    padding: calc(var(--spacing-unit) * 0.75);
+  }
+
+  .todo-item-content {
+    flex-basis: 80%; /* Give content more space */
+    padding-right: 0;
+  }
+
+  .todo-list li button {
+    margin-left: auto; /* Push delete button to the right */
+    flex-shrink: 0; /* Prevent button from shrinking */
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    padding: calc(var(--spacing-unit) * 0.5);
+  }
+
+  .App {
+    padding: calc(var(--spacing-unit) * 0.75);
+  }
+
+  .App-header h1 {
+    font-size: 1.8em;
+  }
+
+  .todo-item-content span {
+    font-size: 1em;
+  }
+}
